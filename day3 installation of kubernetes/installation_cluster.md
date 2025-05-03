@@ -6,21 +6,21 @@
 2 Disable Swap memory
    
    ``` bash 
-   	Swpoff --a
+   	swpoff --a
 ```
 
 Disable SELinux
 
 ``` bash 
-    Setenforce 0
+    setenforce 0
 ```
 Disable Firewall
 ```bash 
-	Systemctl stop firewalld
+	systemctl stop firewalld
 ```
 3) Host entry
 
-  	Vim /etc/hosts
+  	vim /etc/hosts
 	Both master & worker node entry on all node
 	{ip addddress domain_name  shortname}
                             
@@ -29,20 +29,20 @@ Disable Firewall
 ```bash 
 yum remove docker docker-client-latest docker-common docker-latest docker-latest-logrotate  docker-engine podman runc
 yum install yum-utils -y 
-Yum-config-manager –add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum-config-manager –add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
-Yum install docker-ce
+yum install docker-ce
 
-Systemctl start docker
+systemctl start docker
 
-Systemctl enable docker
+systemctl enable docker
 
-Docker run hello-word
+docker run hello-word
 ```
 5 containerd error
 
 If there is error related to containerd 
-Vim /etc/containerd/config.toml- install plugin
+vim /etc/containerd/config.toml- install plugin
 #Disabled_plugin =[cri]
 #####################################3
 Add these  lines below disabled_plugin=[cri
