@@ -48,6 +48,8 @@ vim /etc/containerd/config.toml
 
 Add these  lines below disabled_plugin=[cri]
 
+``` bash 
+
 version = 2
 
 [plugins]
@@ -64,6 +66,7 @@ version = 2
           
 	  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
 
+```
 
 Systemctl restart containerd
 
