@@ -49,13 +49,20 @@ vim /etc/containerd/config.toml
 Add these  lines below disabled_plugin=[cri]
 
 version = 2
+
 [plugins]
+
   [plugins."io.containerd.grpc.v1.cri"]
+
    [plugins."io.containerd.grpc.v1.cri".containerd]
-      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes]
-        [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
-          runtime_type = "io.containerd.runc.v2"
-          [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+   
+        [plugins."io.containerd.grpc.v1.cri".containerd.runtimes]
+
+	[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+        
+	  runtime_type = "io.containerd.runc.v2"
+          
+	  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
 
 
 Systemctl restart containerd
