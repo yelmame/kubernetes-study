@@ -42,12 +42,11 @@ docker run hello-word
 5 containerd error
 
 If there is error related to containerd 
-vim /etc/containerd/config.toml- install plugin
-#Disabled_plugin =[cri]
-#####################################3
-Add these  lines below disabled_plugin=[cri
-] in /etc/containerd/config.toml
 
+vim /etc/containerd/config.toml
+#Disabled_plugin =[cri]
+
+Add these  lines below disabled_plugin=[cri]
 
 version = 2
 [plugins]
@@ -58,7 +57,7 @@ version = 2
           runtime_type = "io.containerd.runc.v2"
           [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
 
-#############################
+
 Systemctl restart containerd
 
 6) Install Kubernetes tools
