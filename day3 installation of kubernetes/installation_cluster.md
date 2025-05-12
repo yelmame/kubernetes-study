@@ -6,7 +6,7 @@
 2 Disable Swap memory
    
    ``` bash 
-   	swpoff --a
+   	swapoff --a
 ```
 
 Disable SELinux
