@@ -30,8 +30,9 @@ https://docs.docker.com/engine/install/rhel/
 
 ```bash 
 yum remove docker docker-client-latest docker-common docker-latest docker-latest-logrotate  docker-engine podman runc
-yum install yum-utils -y 
+sudo dnf -y install dnf-plugins-core
 yum-config-manager –add-repo https://download.docker.com/linux/centos/docker-ce.repo
+subscription-manager register
 
 yum install docker-ce
 
