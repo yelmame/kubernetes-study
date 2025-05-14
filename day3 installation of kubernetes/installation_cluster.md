@@ -77,20 +77,63 @@ Systemctl restart containerd
 
 6) Install Kubernetes tools
 
-Kubeadm install  (follow documentation on Kubernetes.io documentation& follw install kubeadm on all node)
+Kubeadm install 
+follow documentation on Kubernetes.io & follw install kubeadm on all node
+
 Minikube: 1master & 1 worker node
 Kubeadm --> install largest cluster
 
-NowOnly on master node run 
+Installing kubeadm, kubelet and kubectl
+
+```bash
+# Set SELinux in permissive mode (effectively disabling it)
+sudo setenforce 0
+sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+```
+set kubernetes repository 
+```bash
+# This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
+cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.33/rpm/
+enabled=1
+gpgcheck=1
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.33/rpm/repodata/repomd.xml.key
+exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
+EOF
+```
+Install kubeadm tools( kubelet, kubeadm and kubectl):
+
+```bash
+sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+sudo systemctl enable --now kubelet
+
+```
+
+7: Now Only on master node run 
 Kubeadm init
-Login to cluster node
+all master node tools will be install & configuration done
+8> login to cluster 
+to login to cluster require token & ca certificate & login id & passwd 
+now goto root user & authenticate it
+follow steps 
+goto root home dir 
+cd /root
+mkdir .kube 
+cd /etc/kubenetes
+cp admin.conf /root/.kube/config
+       or 
+kubectl get nodes --kubeconfig=/etc/kubernetes/admin.conf
+now check 
+kubectl get nodes 
+it shows master node detail (ypu have succesfully login to kubernetes cluster )
+9> connect worker node to master node 
+token genereted by master node copy it and paste on worker node 
 Connect worker node to master node
 Kubectl get nodes
-Mkdir .kube in roots home dir 
-Cp /etc/Kubernetes/admin.conf /root/.kube/config
-
-Connect to worker node 
 You have to take token from master node and paste to worker node with which you can connect 
+
 Token can be generate with following command
 
 Kubeadm token generate 
