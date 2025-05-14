@@ -25,6 +25,8 @@ Disable Firewall
 	{ip addddress domain_name  shortname}
                             
 4) Install docker
+follow this link
+https://docs.docker.com/engine/install/rhel/
 
 ```bash 
 yum remove docker docker-client-latest docker-common docker-latest docker-latest-logrotate  docker-engine podman runc
