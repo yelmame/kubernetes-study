@@ -70,8 +70,10 @@ version = 2
 	  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
 
 ```
+``` bash
 
 Systemctl restart containerd
+```
 
 6) Install Kubernetes tools
 
