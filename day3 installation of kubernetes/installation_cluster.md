@@ -7,12 +7,13 @@
    
    ``` bash 
    	swapoff --a
-```
+   ```
 
 Disable SELinux
 
 ``` bash 
     setenforce 0
+        
 ```
 Disable Firewall
 ```bash 
@@ -72,12 +73,12 @@ version = 2
 ```
 ``` bash
 
-Systemctl restart containerd
+systemctl restart containerd
 ```
 
 6) Install Kubernetes tools
 
-Kubeadm install 
+kubeadm install 
 follow documentation on Kubernetes.io & follw install kubeadm on all node
 
 Minikube: 1master & 1 worker node
@@ -141,15 +142,15 @@ it shows master node detail (ypu have succesfully login to kubernetes cluster )
 
 token genereted by master node copy it and paste on worker node 
 Connect worker node to master node
-Kubectl get nodes
+kubectl get nodes
 You have to take token from master node and paste to worker node with which you can connect 
 
 Token can be generate with following command
 
-Kubeadm token generate 
-Kubeadm token list 
-Kubeadm token create 
-Kubeadm token create –print-join-command
+kubeadm token generate 
+kubeadm token list 
+kubeadm token create 
+kubeadm token create –print-join-command
 
 Copy token from kudeadm init output from master node (to create new token again you can reset kubeadm reset then again kubeadm init )
 Paste that command on worker node 
@@ -157,9 +158,9 @@ Paste that command on worker node
 4: install calico on matsre node
    Calico.yaml search follow documentation for  kubenetes on 50 less than node 
  curl https://raw.githubusercontent.com/projectcalico/calico/v3.29.1/manifests/calico.yaml -O
-Kubectl apply -f calico.yaml
-Kubectl get pods -n kube-system
-Kubectl get nodes 
+kubectl apply -f calico.yaml
+kubectl get pods -n kube-system
+kubectl get nodes 
 After calico installation on master node
 
 
