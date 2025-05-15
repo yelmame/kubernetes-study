@@ -112,13 +112,19 @@ sudo systemctl enable --now kubelet
 ```
 
 7: Now Only on master node run 
+``` bash
 Kubeadm init
+```
+
 all master node tools will be install & configuration done
-8> login to cluster 
-to login to cluster require token & ca certificate & login id & passwd 
-now goto root user & authenticate it
+
+8> login to cluster
+
+To login to cluster require token & ca certificate & login id & passwd
+Now goto root user & authenticate it
 follow steps 
 goto root home dir 
+```bash
 cd /root
 mkdir .kube 
 cd /etc/kubenetes
@@ -126,9 +132,13 @@ cp admin.conf /root/.kube/config
        or 
 kubectl get nodes --kubeconfig=/etc/kubernetes/admin.conf
 now check 
-kubectl get nodes 
+kubectl get nodes
+```
+
 it shows master node detail (ypu have succesfully login to kubernetes cluster )
-9> connect worker node to master node 
+
+9> connect worker node to master node
+
 token genereted by master node copy it and paste on worker node 
 Connect worker node to master node
 Kubectl get nodes
