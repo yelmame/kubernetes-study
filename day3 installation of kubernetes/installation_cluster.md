@@ -114,7 +114,7 @@ sudo systemctl enable --now kubelet
 
 7: Now Only on master node run 
 ``` bash
-Kubeadm init
+kubeadm init
 ```
 
 all master node tools will be install & configuration done
