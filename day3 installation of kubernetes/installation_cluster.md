@@ -29,11 +29,12 @@ Disable Firewall
 follow this link
 https://docs.docker.com/engine/install/rhel/
 
-```bash 
+```bash
+subscription-manager register
 yum remove docker docker-client-latest docker-common docker-latest docker-latest-logrotate  docker-engine podman runc
 sudo dnf -y install dnf-plugins-core
-yum-config-manager –add-repo https://download.docker.com/linux/centos/docker-ce.repo
-subscription-manager register
+sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+
 
 yum install docker-ce
 
