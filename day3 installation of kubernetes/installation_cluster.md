@@ -161,9 +161,13 @@ Paste that command on worker node
 4: install calico on matsre node Calico.yaml search follow documentation for  kubenetes on 50 less than node
 
 curl https://raw.githubusercontent.com/projectcalico/calico/v3.29.1/manifests/calico.yaml -O
+
 kubectl apply -f calico.yaml
+
 kubectl get pods -n kube-system
+
 kubectl get nodes 
+
 After calico installation on master node
 
 
