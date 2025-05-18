@@ -149,16 +149,18 @@ You have to take token from master node and paste to worker node with which you 
 Token can be generate with following command
 
 kubeadm token generate 
+
 kubeadm token list 
-kubeadm token create 
+kubeadm token create
+
 kubeadm token create –print-join-command
 
 Copy token from kudeadm init output from master node (to create new token again you can reset kubeadm reset then again kubeadm init )
 Paste that command on worker node 
 
-4: install calico on matsre node
-   Calico.yaml search follow documentation for  kubenetes on 50 less than node 
- curl https://raw.githubusercontent.com/projectcalico/calico/v3.29.1/manifests/calico.yaml -O
+4: install calico on matsre node Calico.yaml search follow documentation for  kubenetes on 50 less than node
+
+curl https://raw.githubusercontent.com/projectcalico/calico/v3.29.1/manifests/calico.yaml -O
 kubectl apply -f calico.yaml
 kubectl get pods -n kube-system
 kubectl get nodes 
