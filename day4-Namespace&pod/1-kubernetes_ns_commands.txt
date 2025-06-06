@@ -1,0 +1,161 @@
+ku
+# Basic commands on kubeadm cluster
+## kubeadm : administrative level 
+## kubectl : normal level 
+    ###  master#
+         ``` bash 
+          kubectl api-resources
+          kubectl get nodes
+          kubectl get nodes -o wide 
+          kubectl describe node master 
+          (describe resources of nodes )
+          kubectl describe node worker1
+          kubectl edit node node_name 
+          (add labels)
+          kubectl get nodes --show-labels
+        ```
+
+## Resources :
+various types of objects and compute capacities that are used to define and manage applications within a cluster.
+
+There are two main types of resources in Kubernetes:
+
+### 1. Kubernetes API Resources (Objects)
+These are the building blocks of a Kubernetes system. Each resource is a type of object that can be created and managed through the Kubernetes API.
+
+#### Common Examples:
+
+Resource Type 	Description
+1. Pod	: The smallest deployable unit; a group of containers.
+2. Deployment : Manages replica sets and ensures the desired 
+ number of pods are running.
+
+3. Service : Exposes an application running on a set of Pods.
+4. ConfigMap : Stores configuration data in key-value pairs.
+5. Secret : Stores sensitive data like passwords or tokens.
+6. Ingress : Manages external access to services, typically HTTP.
+7. Namespace : Provides isolation for groups of resources.
+
+
+### 2.  Compute Resources (CPU and Memory)
+actual hardware resources (or virtualized equivalents) that your containers and pods consume on the nodes.
+
+Key Terms:
+Requests: The minimum amount of CPU/memory a container is guaranteed.
+
+Limits: The maximum amount of CPU/memory a container can use.
+
+Example:
+
+yaml file 
+``` bash
+resources:
+  requests:
+    memory: "64Mi"
+    cpu: "250m"
+  limits:
+    memory: "128Mi"
+    cpu: "500m"
+```
+
+
+The container requests 64Mi of memory and 250 millicores of CPU.
+
+It cannot exceed 128Mi memory and 500 millicores of CPU.
+
+## Namespaces 
+
+namespace is a way to divide cluster resources between multiple users or teams. Think of it as a virtual cluster within a physical Kubernetes cluster.
+
+### Key Concepts
+
+1. Isolation: Namespaces provide a scope for names. Resources like Pods, Services, and Deployments in one namespace are hidden from others.
+
+2. Organization: Useful for organizing resources by environment (e.g., dev, staging, prod) or by team/project.
+
+3. Resource Management: You can apply resource quotas and limits on a per-namespace basis to manage compute usage.
+
+4. Access Control: Role-Based Access Control (RBAC) can be applied per namespace, allowing different users to have different permissions in different namespaces.
+
+### Default Namespaces
+
+Kubernetes has a few built-in namespaces:
+
+1. default: The default for objects with no other namespace.
+
+2. kube-system: Used for Kubernetes system components.
+
+3. kube-public: Readable by all users (including unauthenticated); used for public info.
+
+4. kube-node-lease: Used for node heartbeats.
+
+Example
+
+1. To create a namespace:
+
+```bash
+
+kubectl create namespace dev
+```
+2. To run a pod in that namespace:
+
+``` bash
+kubectl run nginx --image=nginx --namespace=dev
+```
+3. To list all namespaces:
+
+``` bash
+kubectl get namespaces
+```
+
+Namespaces 
+kubectl get/edit/describe/create/delete <resources> <resource_name>
+
+example 
+
+kubectl create namespace amazon 
+kubectl get namespaces
+kubectl describe ns amazon 
+
+kubectl edit ns amazon
+under labels
+	app: apache 
+
+kubectl delete ns amazon 
+kubectl get ns -o wide
+kubectl get ns --show-labels
+
+
+###  create resources via yaml file i.e. imperative method
+
+*******
+vi namespace.yaml
+apiVersion: v1
+kind: namespace
+metadata:
+	name: Flipcart
+	labels: 
+	  app: shopping
+**********
+kubectl create -f namespace.yaml
+kubectl get ns --show-labels
+
+vi namespace.yaml
+add one more label 
+fruit: mango 
+
+kubectl apply -f namespace.yaml
+kubectl get all -n kube-system
+
+
+
+
+
+
+
+
+
+
+ 
+
+
