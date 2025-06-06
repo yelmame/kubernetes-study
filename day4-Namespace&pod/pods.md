@@ -5,7 +5,6 @@
 
 kubectl get pods -n amazon 
 
-```
 kubectl get pods -n kube-system
 
 kubectl get pods --all-namespaces
@@ -34,6 +33,7 @@ kubectl exec -it <podname> /bin/bash
 env 
 
 cat /etc/os-release
+
 ```
 
 Method-2   create pod with yaml 
