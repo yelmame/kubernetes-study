@@ -1,11 +1,11 @@
 ****  PODS  ***
 
 -smallest unit of resources is pod we cannot interact with container , we create pods
- 
-``bash 
+ ```bash 
 
 kubectl get pods -n amazon 
 
+```
 kubectl get pods -n kube-system
 
 kubectl get pods --all-namespaces
