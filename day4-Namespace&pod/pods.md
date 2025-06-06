@@ -24,29 +24,33 @@ kubectl get pods
 kubectl get pods -n default 
 ```
 ```bash
-
 kubectl describe pod pod1
-
+```
+```bash
 kubectl edit pod pod1
+```
 (if you change name of pod then it create pod & delete )
-
+```bash
 kubectl get pods --show-labels
-
+```
+```bash
 kubectl run pod1 --image=nginx:1.14.2 -n amazon 
-
+```
+```bash
 kubectl get ev 
-
+```
+```bash
 kubectl logs pod1
-
+```
+```bash
 kubectl exec -it <podname> /bin/bash
-
 env 
-
 cat /etc/os-release
 
 ```
 
 Method-2   create pod with yaml 
+
 vi  pod2.yaml
 ```bash
 apiVersion: v1
