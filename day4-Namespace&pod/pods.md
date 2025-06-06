@@ -2,12 +2,18 @@
 
 -smallest unit of resources is pod we cannot interact with container , we create pods
  ```bash 
+```bash
 
 kubectl get pods -n amazon 
+```
+```bash
 
 kubectl get pods -n kube-system
+```
+```bash
 
 kubectl get pods --all-namespaces
+```
 
 kubectl run podname --image=nginx:1.14.2
 
