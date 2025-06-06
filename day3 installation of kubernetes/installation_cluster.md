@@ -171,6 +171,16 @@ kubectl get nodes
 
 After calico installation on master node
 
+need to find out token already generated 
+
+on master node
+
+```bash
+kubeadm token create --print-join-command
+```
+paste this token on workere node
+
+
 
 
 
