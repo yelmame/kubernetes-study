@@ -39,19 +39,42 @@ kubectl get rc -n qa
 kubectl describe rc -n qa | less
 
 # Delete the ReplicationController
-kubectl delete rc -n qa
+kubectl delete rc r1
 
 # Delete a pod to test High Availability (HA)
 kubectl delete pod <podname> -n qa
 ```
+# creat a pod with command(dry run )
+```
+kubctl run pod1 --image httpd --dry-run=client -o yaml >pod.yaml
+ls
+vim pod.yaml
+metadata:
+   labels:
+      app: nginx
+ kubectl creat -f pod.yaml
 
+pod is created
+run replication controller also
+now check how many pods crated
+kubectl get po --show-labels
+pod1
+nginx1
+nginx2
+
+
+totally it creats total 3 pods as labels of pod is app: nginx & selector app: nginx rc has aquird pod from pod label is same
+ kubectl describe po
+kubectl delete rc
+ 
 ---
 
 ### 🔄 3 Ways to Scale Up/Down
 
 1. **Scale using CLI:**
    ```bash
-   kubectl scale --replicas=3 rc/webserver -n qa
+   kubectl scale --replicas=no_of_replica replication-controller/name_of_rc
+   kubectl scale --replicas=3 rc/rc -n qa
    ```
 
 2. **Edit directly (via etcd update):**
@@ -62,7 +85,7 @@ kubectl delete pod <podname> -n qa
 
 3. **Modify YAML and re-apply:**
    ```bash
-   kubectl get rc webserver -n qa -o yaml > is.yml
+   kubectl get rc rc -n qa -o yaml > is.yml
    # Edit `replicas:` value to desired number (e.g., 4)
    kubectl apply -f is.yml
    ```
