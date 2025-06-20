@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-replicaset
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchExpressions:
+     - key: app
+       operator: Exists
+  template:
+    metadata:
+      labels:
+        app: abc
+    spec:
+      containers:
+      - name: httpd-container
+        image: httpd

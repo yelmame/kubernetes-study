@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: expr-replicaset
+spec:
+  replicas: 4
+  selector:
+    matchExpressions:
+      - key: app
+        operator: NotIn
+        values:
+          - live
+  template:
+    metadata:
+      labels:
+        app: prod
+    spec:
+      containers:
+      - name: httpd
+        image: httpd
+        ports:
+        - containerPort: 80
+
+"matchexpre-rs1.yaml" 23L, 370B                               10,9          All
+
