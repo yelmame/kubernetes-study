@@ -1,0 +1,22 @@
+commands of deployment 
+
+
+
+kubectl create deployment cka --image=nginx:1.17.10 
+   11  kubectl get deploy cka
+   12  kubectl get pods 
+   14  kubectl scale deployment cka --replicas=5
+   15  kubectl get deploy cka
+   16  kubectl describe deployment cka
+   17  kubectl describe deployment cka |grep -i image
+   18  kubectl set image deployment cka --nginx=nginx:latest --reeecord
+   19  kubectl set image deployment cka --nginx=nginx:latest --record
+   20  kubectl set image deployment cka nginx=nginx:latest --record
+   21  kubectl describe deployment cka | less
+   22  kubectl rollout status
+   23  kubectl --help
+   24  kubectl rollout status
+   25  kubectl deployment  rollout status
+   26  kubectl  rollout status deployment cka
+   27  kubectl describe deployment cka 
+   28  kubectl describe deployment cka | less
