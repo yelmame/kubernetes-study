@@ -1,0 +1,108 @@
+scheduling 
+1> nodename scheduling: NO HA
+2> nodedselector scheduling 
+3> taint toleration scheduling 
+4> cordon uncorden scheduling 
+5> affinity & antiaffinity
+ 
+
+deploy.yaml 
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+	name: grras-deploy1
+spec:
+	replicas: 5 
+	selector:
+		matchlabels:
+			app: prod
+	template:
+		metadata:		
+			name: podrs
+			labels:
+				app: prod
+		spec:
+			nodeName: master
+			containers:
+			- name: nginx
+			  image: nginx:1.18.0
+*****************************************************************
+
+to apply this deployment 
+kubectl create -f deploy.yaml
+kubectl describe podname 
+(it shpws node name as master )
+kubectl get po -o wide
+kubectl delete -f deploy.yaml
+
+kubectl get all
+now goto deploy.yaml 
+make comment  nodename: master 
+
+apply kubectl apply -f deploy.yaml
+so it will create on worker node
+
+
+
+2> node selector 
+modeify deploy.yaml file 
+
+spec:
+	nodeSelector:   
+	  disk: ssd
+	containers:
+	- name: nginx
+	  image: nginx:1.18.0
+
+kubectl apply -f deploy.yaml 
+kubectl get all 
+all replicas are pending 
+as label disk : ssd is not on any node
+
+set label on node worker1
+
+kubectl label node worker1 disk=ssd 
+open another tab 
+kubectl get all
+watch kubectl get all -o wide
+pods are created
+kubectl delete -f deploy.yaml
+
+3>  Taint toleration scheduling 
+
+taint : node
+toleration =pod[yam]
+
+key=value:EFFECT
+key:EFFECT 
+
+effect :
+1> NoSchedule:--- abc=xyz:NoSchedule(taint on node1) so it will not schedule on node1 
+2> PreferNoSchedule--env=prod:PreferNoSchedule(frefer me at last )
+3> NoExecute:---pqr=name:Noexecute : (remove individual pod & replicas move some other node )
+
+
+
+handson :
+
+kubectl descibe no worker1
+taint - none
+kubectl taint node worker1 org=fc:NoSchedule
+
+go to deploy1.yaml
+
+remove node selector from spec 
+
+kubectl deploy -f deploy1.yaml
+kubectl get all
+
+
+
+
+
+
+
+
+	
