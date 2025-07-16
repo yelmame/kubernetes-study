@@ -15,13 +15,20 @@ kubectl get pods --all-namespaces
 ```
 ```bash
 kubectl run podname --image=nginx:1.14.2
+kubectl run pod1 --image httd -n freecharge
+
 ```
 ```bash
 kubectl get pods
 ```
 ```bash
 
-kubectl get pods -n default 
+kubectl get pods -n default
+kubectl get ns --show-labels
+kubectl label ns freecharge env=prod
+kubectl label po podd1 app=web
+kubectl label po pod1 app-
+
 ```
 ```bash
 kubectl describe pod pod1
@@ -46,6 +53,9 @@ kubectl logs pod1
 kubectl exec -it <podname> /bin/bash
 env 
 cat /etc/os-release
+kubectl deletee po --all
+kubectl deleetee po podd1
+
 
 ```
 
