@@ -45,6 +45,11 @@ kubectl get ns
 kubectl run nginx --image nginx    (nginx pod created )
 kubectl delete pod nginx
 kubectl run nginx --image nginx -n nginx (to create pod in ns nginx)
+kubectl get po
+kubectl get ns --show-labels
+kubectl label po podname app=web
+kubectl label po podname app-
+ 
 
 ```
 
