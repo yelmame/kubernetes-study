@@ -1,0 +1,100 @@
+step 1:
+create a nfs shared dir on master & mount it on all workernodes
+nfs sharing (eighter create partition and mount into on /batch dir or dir can be mounted via nfs)
+
+master node 
+yum install nfs-utils* -y 
+systemctl start nfs-server
+mkdir /batch 
+vi index,html 
+welcome pv & pvc
+chown nobody:nobody /batch
+vim /etc/exports
+/batch *(rw,sync,no_root_squash)
+exportfs -rv 
+
+mount this nfs share on each worker node
+
+worker1-node
+
+mkdir /batch-worker1
+mount -t nfs master_server_ip:/batch /batch-worker1
+
+repeat step on each worker node
+
+
+step2: 
+create pv 
+********************
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv3
+spec:
+  capacity:
+    storage: 3Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: slow
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /batch
+    server: 192.168.80.131
+***********************************
+
+step3
+create pvc
+vi pvc.yaml
+************************
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc3
+  namespace: udemy
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: slow
+***************************************
+
+step 4:
+create a pod 
+vi pod.yaml
+*****************************
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pvpod
+  namespace: udemy
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+      - name: vol1
+        mountPath: /usr/share/nginx/html
+  volumes:
+    - name: vol1
+      persistentVolumeClaim:
+        claimName: pvc3
+
+
+****************************
+
+check pod is created or not 
+
+kubectl get pod -n udemy
+kubectl exec -it pvpod -n udemy -- /bin/bash
+cd /usr/share/nginx/html
+you can see mounted data from dir batch 
+
+
+
