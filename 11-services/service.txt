@@ -1,0 +1,97 @@
+service 
+task 1: create flipcart ns & create a flipcartweb application via service 
+
+step 1: create deployment for flipcartweb app uses nginx app using command i.e dry run & create yaml file of that 
+
+  109  k create deployment flipcartweb --image=nginx --dry-run=client -o yaml > flipcartweb.yaml
+  110  ls
+  111  vi flipcartweb.yaml 
+	modify replicas = 3 
+  112  k create flipcartweb.yaml -n flipcartweb.yaml 
+  113  k create flipcartweb.yaml -n flipcart
+  114  k create -f flipcartweb.yaml -n flipcart
+  115  k get pods -n flipcart
+  116  k get pods -n flipcart -o wide
+  
+ vim flipcartweb.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: flipcartweb
+  name: flipcartweb
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flipcartweb
+  template:
+    metadata:
+      labels:
+        app: flipcartweb
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+
+******************************
+step 2: create a service 
+to access this pods from deployment we have to expose is to service 
+ 
+# kubectl expose deployment flipcartweb --name=flipservice --port=80 --targetport=80 --type=clusterIp --dry-run=client -o yaml
+               or 
+kubectl expose deployment flipcartweb --name=flipservice --port=80 --target-port=80 --type=ClusterIP  -n flipcar
+
+kubectl get svc -n flipcart
+  curl 10.111.64.83
+[root@master ~]# kubectl get pod -n flipcart -o wide
+NAME                          READY   STATUS    RESTARTS   AGE   IP               NODE      NOMINATED NODE   READINESS GATES
+flipcartweb-76f7bc964-bwjcd   1/1     Running   0          88m   172.16.235.150   worker1   <none>           <none>
+flipcartweb-76f7bc964-ksq6p   1/1     Running   0          88m   172.16.189.113   worker2   <none>           <none>
+flipcartweb-76f7bc964-tcsx7   1/1     Running   0          88m   172.16.235.153   worker1   <none>           <none>
+
+step 3: create service flipinternet nodeport 
+now i want to connect to this node port ip from outside (internet )  
+
+kubectl expose deployment flipcartweb --name=flipcartnet --port=80 --target-port=80 --type=NodePort-n flipcart
+service exposed
+Kubernetes get svc -n flipcart
+Kubernetes get pods -n flipcart -o wide
+worker2 node ip addr 
+go to browser & type worker2ip:30049
+
+Kubernetes get pod -n flipcart
+
+Kubernetes exec -it flipcartweb-23342354 /bin/bash     (login to pod 1 )
+cd /usr/share/nginx/html
+echi welcome to node1 po
+
+edit all pods with different content 
+goto brouwser & access with ip 
+
+it balances load between different replicas by kube proxy 
+
+
+
+
+vi flipcartweb.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: flipcartweb
+  name: flipcartweb
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flipcartweb
+  template:
+    metadata:
+      labels:
+        app: flipcartweb
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
